@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scripts.Player;
+using UnityEngine;
 
 namespace Scripts
 {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scripts.Player;
+using UnityEngine;
 
 namespace Scripts
 {
@@ -16,7 +17,7 @@ namespace Scripts
             var player = other.gameObject.GetComponent<PlayerController>();
             if (player)
             {
-                player._isHit = true;
+                player.IsHit = true;
             }
         }
     }
