@@ -7,13 +7,16 @@ namespace Scripts.Player
     {
         [SerializeField] private float _speed = 5f;
         [SerializeField] private float _turnSpeed = 5f;
-        [SerializeField] private float _jumpForce;
+        [SerializeField] private float _jumpForce = 5f;
         [SerializeField] private float _onStartDelay = 3f;
 
         private static readonly int RunKey = Animator.StringToHash("run");
-        private static readonly int JumpKey = Animator.StringToHash("jump");
         private static readonly int SlideKey = Animator.StringToHash("slide");
+        private static readonly int JumpKey = Animator.StringToHash("jump");
+        private static readonly int FallKey = Animator.StringToHash("fall");
+        private static readonly int LandingKey = Animator.StringToHash("landing");
         private static readonly int HitKey = Animator.StringToHash("hit");
+        private static readonly int LoseKey = Animator.StringToHash("lose");
 
         public bool LeftTurn { get; set; }
         public bool RightTurn { get; set; }
@@ -22,12 +25,14 @@ namespace Scripts.Player
 
         private LevelBoundaries _lvlBounds;
         private Animator _animator;
+        //private Rigidbody _playerBody;
         private bool _isRunning;
 
         private void Awake()
         {
             _lvlBounds = FindObjectOfType<LevelBoundaries>();
-            _animator = FindObjectOfType<Animator>();
+            _animator = GetComponent<Animator>();
+            //_playerBody = GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -73,8 +78,8 @@ namespace Scripts.Player
                 }
                 if (Jump)
                 {
-                    _animator.SetTrigger(JumpKey);
-                    //_playerBody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                    _animator.SetBool(JumpKey, true);
+                    //_playerBody.AddForce(Vector3.up * _jumpForce * Time.deltaTime, ForceMode.Impulse);
                     //_playerBody.AddForce(0, (_strafeSpeed * 100) * Time.deltaTime, 0, ForceMode.VelocityChange);
 
                     Jump = false;

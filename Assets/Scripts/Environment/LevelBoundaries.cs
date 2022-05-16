@@ -21,7 +21,7 @@ namespace Scripts.Environment
         {
             var playerWidth = _player.gameObject.transform.localScale.x;
 
-            _groundBorder = (_ground.transform.localScale.x / 2f) - playerWidth / 2;
+            _groundBorder = (_ground.transform.localScale.x / 2f) - playerWidth / 4f;
         }
     }
 }
