@@ -9,47 +9,54 @@ namespace Scripts.Player
         [SerializeField] private float _speed = 5f;
         [SerializeField] private float _turnSpeed = 5f;
         [SerializeField] private float _jumpForce = 5f;
-        [SerializeField] private float _onStartDelay = 5f;
+        [SerializeField] private Animator _animator;
 
         [Header("Checkers")]
         [SerializeField] private LayerCheck _groundCheck;
 
         private static readonly int RunKey = Animator.StringToHash("run");
-        private static readonly int SlideKey = Animator.StringToHash("slide");
         private static readonly int JumpKey = Animator.StringToHash("jump");
         private static readonly int FallKey = Animator.StringToHash("fall");
-        private static readonly int LandingKey = Animator.StringToHash("landing");
-        private static readonly int HitKey = Animator.StringToHash("hit");
         private static readonly int LoseKey = Animator.StringToHash("lose");
 
         public bool LeftTurn { get; set; }
         public bool RightTurn { get; set; }
         public bool Jump { get; set; }
-        public bool IsHit { get; set; }
 
         private LevelBoundaries _lvlBounds;
-        private Animator _animator;
         private bool _isRunning;
+        private GameSession _gameSession;
+        private Rigidbody _rigidbody;
+        private bool _isGrounded;
+        private bool _gameIsStarted;
 
         public bool IsRunning => _isRunning;
+        public bool IsGrounded => _isGrounded;
 
         private void Awake()
         {
             _lvlBounds = FindObjectOfType<LevelBoundaries>();
-            _animator = FindObjectOfType<Animator>();
+            _gameSession = FindObjectOfType<GameSession>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update()
         {
-            if (_onStartDelay > 0)
-            {
-                _onStartDelay -= Time.deltaTime;
-            }
-            else
-            {
-                _onStartDelay = 0;
+            _isGrounded = _groundCheck.IsTouchingLayer;
 
-                _isRunning = true;
+            if (!_gameIsStarted)
+            {
+                if (_gameSession.OnStartDelay > 0)
+                {
+                    _gameSession.OnStartDelay -= Time.deltaTime;
+                }
+                else
+                {
+                    _gameSession.OnStartDelay = 0;
+
+                    _isRunning = true;
+                    _gameIsStarted = true;
+                }
             }
 
             //if (transform.position.y < -5f)
@@ -79,21 +86,27 @@ namespace Scripts.Player
                         transform.Translate(Vector3.right * _turnSpeed * Time.deltaTime);
                     }
                 }
-                if (Jump/* && _groundCheck.IsTouchingLayer*/)
+                if (Jump && _isGrounded)
                 {
-                    _animator.SetBool(JumpKey, true);
-                    transform.Translate(Vector3.up * _jumpForce * Time.deltaTime);
+                    _animator.SetTrigger(JumpKey);
+                    _rigidbody.velocity = Vector3.up * _jumpForce;
 
-                    //Jump = false;
+                    Jump = false;
+                }
+                else if (!_isGrounded)
+                {
+                    _animator.SetBool(FallKey, true);
+                }
+                else if (_isGrounded)
+                {
+                    _animator.SetBool(FallKey, false);
                 }
             }
 
-            if (IsHit)
+            if (_gameSession.Health <= 0)
             {
                 _isRunning = false;
-                _animator.SetBool(RunKey, false);
-
-                _animator.SetTrigger(HitKey);
+                _animator.SetBool(LoseKey, true);
             }
         }
     }

@@ -12,6 +12,9 @@ namespace Scripts.Environment
         [SerializeField] private int _spawnSectionsOnStart;
         [SerializeField] private float _spawnSectionsDelay = 2f;
         [SerializeField] private float _sectionLong;
+        [SerializeField] private float _biomeLifeSpan = 30f;
+
+        public float BiomeLifeSpan => _biomeLifeSpan;
 
         private float _zPosition;
         private bool _readyToSpawn;
