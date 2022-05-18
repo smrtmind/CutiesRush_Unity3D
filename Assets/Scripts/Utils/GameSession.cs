@@ -1,20 +1,35 @@
-﻿using System.Collections;
+﻿using Scripts.Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Utils
 {
     public class GameSession : MonoBehaviour
     {
-        //distance
-        private int _distance;
+        [SerializeField] private int _coins;
+        [SerializeField] private int _distance;
+        [SerializeField] private float _addDistanceDelay = 1f;
+
+        public int Coins => _coins;
+        public int Distance => _distance;
+
         private bool _addDistance = false;
+        private PlayerController _playerController;
+
+        private void Awake()
+        {
+            _playerController = FindObjectOfType<PlayerController>();
+        }
 
         private void Update()
         {
-            if (!_addDistance)
+            if (_playerController.IsRunning)
             {
-                _addDistance = true;
-                StartCoroutine(AddDistance());
+                if (!_addDistance)
+                {
+                    _addDistance = true;
+                    StartCoroutine(AddDistance());
+                }
             }
         }
 
@@ -22,9 +37,11 @@ namespace Scripts.Utils
         {
             _distance++;
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(_addDistanceDelay);
 
             _addDistance = false;
         }
+
+        public void AddCoin(int value) => _coins += value;
     }
 }

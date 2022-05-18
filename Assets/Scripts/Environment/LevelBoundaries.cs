@@ -15,13 +15,11 @@ namespace Scripts.Environment
         private void Awake()
         {
             _player = FindObjectOfType<PlayerController>();
-        }
 
-        private void Update()
-        {
             var playerWidth = _player.gameObject.transform.localScale.x;
+            var groundWidth = _ground.transform.localScale.x;
 
-            _groundBorder = (_ground.transform.localScale.x / 2f) - playerWidth / 4f;
+            _groundBorder = (groundWidth / 2f) - playerWidth;
         }
     }
 }

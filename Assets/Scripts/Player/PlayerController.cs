@@ -1,4 +1,5 @@
 ﻿using Scripts.Environment;
+using Scripts.Utils;
 using UnityEngine;
 
 namespace Scripts.Player
@@ -8,7 +9,10 @@ namespace Scripts.Player
         [SerializeField] private float _speed = 5f;
         [SerializeField] private float _turnSpeed = 5f;
         [SerializeField] private float _jumpForce = 5f;
-        [SerializeField] private float _onStartDelay = 3f;
+        [SerializeField] private float _onStartDelay = 5f;
+
+        [Header("Checkers")]
+        [SerializeField] private LayerCheck _groundCheck;
 
         private static readonly int RunKey = Animator.StringToHash("run");
         private static readonly int SlideKey = Animator.StringToHash("slide");
@@ -25,14 +29,14 @@ namespace Scripts.Player
 
         private LevelBoundaries _lvlBounds;
         private Animator _animator;
-        //private Rigidbody _playerBody;
         private bool _isRunning;
+
+        public bool IsRunning => _isRunning;
 
         private void Awake()
         {
             _lvlBounds = FindObjectOfType<LevelBoundaries>();
-            _animator = GetComponent<Animator>();
-            //_playerBody = GetComponent<Rigidbody>();
+            _animator = FindObjectOfType<Animator>();
         }
 
         private void Update()
@@ -41,18 +45,17 @@ namespace Scripts.Player
             {
                 _onStartDelay -= Time.deltaTime;
             }
-
-            if (_onStartDelay <= 0)
+            else
             {
                 _onStartDelay = 0;
 
                 _isRunning = true;
             }
 
-            if (transform.position.y < -5f)
-            {
-                Debug.Log("Game Over");
-            }
+            //if (transform.position.y < -5f)
+            //{
+            //    Debug.Log("Game Over");
+            //}
         }
 
         private void FixedUpdate()
@@ -76,13 +79,12 @@ namespace Scripts.Player
                         transform.Translate(Vector3.right * _turnSpeed * Time.deltaTime);
                     }
                 }
-                if (Jump)
+                if (Jump/* && _groundCheck.IsTouchingLayer*/)
                 {
                     _animator.SetBool(JumpKey, true);
-                    //_playerBody.AddForce(Vector3.up * _jumpForce * Time.deltaTime, ForceMode.Impulse);
-                    //_playerBody.AddForce(0, (_strafeSpeed * 100) * Time.deltaTime, 0, ForceMode.VelocityChange);
+                    transform.Translate(Vector3.up * _jumpForce * Time.deltaTime);
 
-                    Jump = false;
+                    //Jump = false;
                 }
             }
 
