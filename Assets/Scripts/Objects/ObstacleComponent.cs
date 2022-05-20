@@ -21,7 +21,6 @@ namespace Scripts.Objects
             if (player)
             {
                 _gameSession.ModifyHealth(-1);
-                //player.IsHit = true;
             }
         }
     }

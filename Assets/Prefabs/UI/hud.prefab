@@ -31,7 +31,7 @@ RectTransform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 2797441812862748345}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -578,7 +578,7 @@ RectTransform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 2797441812862748345}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -660,7 +660,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2797441812399616809}
   m_OnClick:
     m_PersistentCalls:
@@ -982,8 +982,8 @@ RectTransform:
   m_Children:
   - {fileID: 2797441812459637657}
   - {fileID: 2797441812402750240}
-  - {fileID: 2797441812399616811}
   - {fileID: 2438205089549511818}
+  - {fileID: 2797441812399616811}
   - {fileID: 7480984765810600683}
   - {fileID: 1632534558814339365}
   - {fileID: 2797441812581020619}
@@ -1010,6 +1010,10 @@ MonoBehaviour:
   _coinsValue: {fileID: 2797441812716064027}
   _distanceValue: {fileID: 2797441812078978779}
   _timerToStart: {fileID: 2797441812581020618}
+  _playButton: {fileID: 6171759467723207383}
+  _pauseButton: {fileID: 2797441812399616808}
+  _restartButton: {fileID: 3723674794822611911}
+  _exitButton: {fileID: 1611285312921999122}
 --- !u!1 &3162641769047450040
 GameObject:
   m_ObjectHideFlags: 0

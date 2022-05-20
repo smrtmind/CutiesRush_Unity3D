@@ -30,6 +30,7 @@ namespace Scripts.Player
         private bool _isGrounded;
         private bool _gameIsStarted;
 
+        public bool GameIsStarted => _gameIsStarted;
         public bool IsRunning => _isRunning;
         public bool IsGrounded => _isGrounded;
 

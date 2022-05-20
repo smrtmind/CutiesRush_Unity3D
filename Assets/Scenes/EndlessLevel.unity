@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.56069535, g: 0.7214008, b: 0.81777626, a: 1}
+  m_IndirectSpecularColor: {r: 0.561237, g: 0.72171336, b: 0.81786424, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -882,7 +882,8 @@ MonoBehaviour:
   - {fileID: 9025550810436162793, guid: 446e37cefc16bb6469c134578ca98279, type: 3}
   - {fileID: 9025550810436162793, guid: 5a7321769a8a0ad48ae275e3dd53eeab, type: 3}
   _testSection: {fileID: 528565522}
-  _spawnSectionsOnStart: 10
+  _startSpawn: 1
+  _spawnSectionsOnStart: 2
   _spawnSectionsDelay: 3
   _sectionLong: 40
   _biomeLifeSpan: 80
@@ -981,7 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a540a798d18f6a47834752c442fd06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 0
   _turnSpeed: 5
   _jumpForce: 7
   _animator: {fileID: 627325840}

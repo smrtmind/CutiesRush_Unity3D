@@ -1,4 +1,5 @@
-﻿using Scripts.Player;
+﻿using Scripts.Environment;
+using Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,11 +12,18 @@ namespace Scripts.Utils
         [SerializeField] private Text _distanceValue;
         [SerializeField] private GameObject _timerToStart;
 
+        [Space]
+        [SerializeField] private Button _playButton;
+        [SerializeField] private Button _pauseButton;
+        [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _exitButton;
+
         private GameSession _gameSession;
         private PlayerController _playerController;
         private Text _timer;
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
+        private LevelComponent _levelComponent;
 
         private void Awake()
         {
@@ -23,6 +31,7 @@ namespace Scripts.Utils
             _playerController = FindObjectOfType<PlayerController>();
             _timer = _timerToStart.GetComponent<Text>();
             _followCamera = FindObjectOfType<FollowCamera>();
+            _levelComponent = FindObjectOfType<LevelComponent>();
 
             _defaultCameraVector = _followCamera.Offset;
         }
@@ -46,7 +55,21 @@ namespace Scripts.Utils
                 _timerToStart.SetActive(false);
                 _distanceValue.text = $"{_gameSession.Distance}";
             }
-                
+
+            if (_gameSession.Health <= 0)
+            {
+                _playButton.gameObject.SetActive(true);
+                _playButton.interactable = false;
+
+                _pauseButton.gameObject.SetActive(false);
+                _restartButton.gameObject.SetActive(true);
+                _exitButton.gameObject.SetActive(true);
+            }
+
+            if (_playerController.GameIsStarted)
+            {
+                _pauseButton.interactable = true;
+            }
         }
 
         public void OnPause()
@@ -55,6 +78,8 @@ namespace Scripts.Utils
             SetRotation(0f, 180f, 0f);
 
             _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
+
+            _levelComponent.StartSpawn = false;
         }
 
         public void OnPlay()
@@ -63,6 +88,8 @@ namespace Scripts.Utils
             SetRotation(0f, 0f, 0f);
 
             _followCamera.Offset = _defaultCameraVector;
+
+            _levelComponent.StartSpawn = true;
         }
 
         public void OnRestart()

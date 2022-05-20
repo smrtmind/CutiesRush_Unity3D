@@ -9,12 +9,18 @@ namespace Scripts.Environment
         [SerializeField] private GameObject _testSection;
 
         [Space]
+        [SerializeField] private bool _startSpawn = true;
         [SerializeField] private int _spawnSectionsOnStart;
         [SerializeField] private float _spawnSectionsDelay = 2f;
         [SerializeField] private float _sectionLong;
         [SerializeField] private float _biomeLifeSpan = 30f;
 
         public float BiomeLifeSpan => _biomeLifeSpan;
+        public bool StartSpawn
+        {
+            get => _startSpawn;
+            set => _startSpawn = value;
+        }
 
         private float _zPosition;
         private bool _readyToSpawn;
@@ -23,7 +29,7 @@ namespace Scripts.Environment
         {
             _testSection.SetActive(false);
 
-            for (int i = 0; i < _spawnSectionsOnStart - 1; i++)
+            for (int i = 0; i < _spawnSectionsOnStart; i++)
             {
                 SpawnSection();
                 _readyToSpawn = true;
@@ -32,10 +38,13 @@ namespace Scripts.Environment
 
         private void Update()
         {
-            if (_readyToSpawn)
+            if (_startSpawn)
             {
-                _readyToSpawn = false;
-                StartCoroutine(GenerateSection());
+                if (_readyToSpawn)
+                {
+                    _readyToSpawn = false;
+                    StartCoroutine(GenerateSection());
+                }
             }
         }
 
