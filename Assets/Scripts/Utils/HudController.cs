@@ -18,12 +18,18 @@ namespace Scripts.Utils
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _exitButton;
 
+        [Space]
+        [SerializeField] private Animator _runIconAnimator;
+
         private GameSession _gameSession;
         private PlayerController _playerController;
         private Text _timer;
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
         private LevelComponent _levelComponent;
+
+        private readonly static int StartRunIconKey = Animator.StringToHash("start");
+        private readonly static int RunIconKey = Animator.StringToHash("run");
 
         private void Awake()
         {
@@ -52,6 +58,8 @@ namespace Scripts.Utils
 
             if (_playerController.IsRunning)
             {
+                _runIconAnimator.SetBool(RunIconKey, false);
+
                 _timerToStart.SetActive(false);
                 _distanceValue.text = $"{_gameSession.Distance}";
             }
@@ -68,28 +76,32 @@ namespace Scripts.Utils
 
             if (_playerController.GameIsStarted)
             {
+                _runIconAnimator.SetBool(StartRunIconKey, true);
+
                 _pauseButton.interactable = true;
             }
         }
 
         public void OnPause()
         {
+            _levelComponent.StartSpawn = false;
+
+            _runIconAnimator.SetBool(RunIconKey, true);
+
             _playerController.SetRunningState(false);
             SetRotation(0f, 180f, 0f);
 
             _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
-
-            _levelComponent.StartSpawn = false;
         }
 
         public void OnPlay()
         {
+            _levelComponent.StartSpawn = true;
+
             _playerController.SetRunningState(true);
             SetRotation(0f, 0f, 0f);
 
             _followCamera.Offset = _defaultCameraVector;
-
-            _levelComponent.StartSpawn = true;
         }
 
         public void OnRestart()
