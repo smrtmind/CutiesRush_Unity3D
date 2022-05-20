@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5611169, g: 0.7216247, b: 0.8178553, a: 1}
+  m_IndirectSpecularColor: {r: 0.5603318, g: 0.72114336, b: 0.8176417, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d7cdffebb398f504a824a1575a4955c5,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -734,7 +735,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -883,7 +884,7 @@ MonoBehaviour:
   - {fileID: 9025550810436162793, guid: 5a7321769a8a0ad48ae275e3dd53eeab, type: 3}
   _testSection: {fileID: 528565522}
   _startSpawn: 1
-  _spawnSectionsOnStart: 2
+  _spawnSectionsOnStart: 10
   _spawnSectionsDelay: 3
   _sectionLong: 40
   _biomeLifeSpan: 80
@@ -982,7 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a540a798d18f6a47834752c442fd06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
+  _speed: 10
   _turnSpeed: 5
   _jumpForce: 7
   _animator: {fileID: 627325840}

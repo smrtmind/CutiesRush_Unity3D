@@ -7,9 +7,9 @@ namespace Scripts.Environment
     {
         [SerializeField] private GameObject[] _sections;
         [SerializeField] private GameObject _testSection;
-        [SerializeField] private bool _startSpawn;
 
         [Space]
+        [SerializeField] private bool _startSpawn = true;
         [SerializeField] private int _spawnSectionsOnStart;
         [SerializeField] private float _spawnSectionsDelay = 2f;
         [SerializeField] private float _sectionLong;

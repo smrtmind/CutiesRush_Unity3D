@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6aaf8ea48d52c594988de5d496dff56d
+guid: a6272b5831bf2324ca9bae4e974999aa
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Gloria
+  fontName: Charming Smile DEMO
   fontNames:
-  - Gloria
+  - Charming Smile DEMO
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

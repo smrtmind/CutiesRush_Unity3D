@@ -49,7 +49,7 @@ namespace Scripts.Utils
             if ((int)_gameSession.OnStartDelay <= 0)
             {
                 _timer.color = Color.green;
-                _timer.text = "Go";
+                _timer.text = "GO";
             }
             else
             {
@@ -66,12 +66,19 @@ namespace Scripts.Utils
 
             if (_gameSession.Health <= 0)
             {
+                _runIconAnimator.SetBool(RunIconKey, true);
+
                 _playButton.gameObject.SetActive(true);
                 _playButton.interactable = false;
 
                 _pauseButton.gameObject.SetActive(false);
                 _restartButton.gameObject.SetActive(true);
                 _exitButton.gameObject.SetActive(true);
+
+                _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
+
+                _levelComponent.StartSpawn = false;
+                StopBiomeTimer(true);
             }
 
             if (_playerController.GameIsStarted)
@@ -92,6 +99,8 @@ namespace Scripts.Utils
             SetRotation(0f, 180f, 0f);
 
             _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
+
+            StopBiomeTimer(true);
         }
 
         public void OnPlay()
@@ -102,6 +111,8 @@ namespace Scripts.Utils
             SetRotation(0f, 0f, 0f);
 
             _followCamera.Offset = _defaultCameraVector;
+
+            StopBiomeTimer(false);
         }
 
         public void OnRestart()
@@ -119,6 +130,18 @@ namespace Scripts.Utils
         {
             var rotation = new Vector3(x, y, z);
             _playerController.gameObject.transform.rotation = Quaternion.Euler(rotation);
+        }
+
+        private void StopBiomeTimer(bool state)
+        {
+            var biomes = FindObjectsOfType<Biome>();
+            if (biomes.Length > 0)
+            {
+                foreach (var biome in biomes)
+                {
+                    biome.StopBiomeTimer = state;
+                }
+            }
         }
     }
 }
