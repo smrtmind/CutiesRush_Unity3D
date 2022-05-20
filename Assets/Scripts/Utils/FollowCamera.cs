@@ -7,6 +7,12 @@ namespace Scripts.Utils
     {
         [SerializeField] private Vector3 _offset;
 
+        public Vector3 Offset
+        {
+            get => _offset;
+            set => _offset = value;
+        }
+
         private Transform _player;
 
         private void Awake()

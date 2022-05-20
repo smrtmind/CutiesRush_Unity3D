@@ -1,5 +1,6 @@
 ﻿using Scripts.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scripts.Utils
@@ -13,12 +14,17 @@ namespace Scripts.Utils
         private GameSession _gameSession;
         private PlayerController _playerController;
         private Text _timer;
+        private FollowCamera _followCamera;
+        private Vector3 _defaultCameraVector;
 
         private void Awake()
         {
             _gameSession = FindObjectOfType<GameSession>();
             _playerController = FindObjectOfType<PlayerController>();
             _timer = _timerToStart.GetComponent<Text>();
+            _followCamera = FindObjectOfType<FollowCamera>();
+
+            _defaultCameraVector = _followCamera.Offset;
         }
 
         private void Update()
@@ -41,6 +47,39 @@ namespace Scripts.Utils
                 _distanceValue.text = $"{_gameSession.Distance}";
             }
                 
+        }
+
+        public void OnPause()
+        {
+            _playerController.SetRunningState(false);
+            SetRotation(0f, 180f, 0f);
+
+            _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
+        }
+
+        public void OnPlay()
+        {
+            _playerController.SetRunningState(true);
+            SetRotation(0f, 0f, 0f);
+
+            _followCamera.Offset = _defaultCameraVector;
+        }
+
+        public void OnRestart()
+        {
+            var sceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(sceneName);
+        }
+
+        public void OnExit()
+        {
+            Application.Quit();
+        }
+
+        private void SetRotation(float x, float y, float z)
+        {
+            var rotation = new Vector3(x, y, z);
+            _playerController.gameObject.transform.rotation = Quaternion.Euler(rotation);
         }
     }
 }

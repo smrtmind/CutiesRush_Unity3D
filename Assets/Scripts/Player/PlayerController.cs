@@ -59,14 +59,6 @@ namespace Scripts.Player
                 }
             }
 
-            //if (transform.position.y < -5f)
-            //{
-            //    Debug.Log("Game Over");
-            //}
-        }
-
-        private void FixedUpdate()
-        {
             if (_isRunning)
             {
                 _animator.SetBool(RunKey, true);
@@ -90,8 +82,6 @@ namespace Scripts.Player
                 {
                     _animator.SetTrigger(JumpKey);
                     _rigidbody.velocity = Vector3.up * _jumpForce;
-
-                    Jump = false;
                 }
                 else if (!_isGrounded)
                 {
@@ -108,6 +98,17 @@ namespace Scripts.Player
                 _isRunning = false;
                 _animator.SetBool(LoseKey, true);
             }
+
+            //if (transform.position.y < -5f)
+            //{
+            //    Debug.Log("Game Over");
+            //}
+        }
+
+        public void SetRunningState(bool state)
+        {
+            _isRunning = state;
+            _animator.SetBool(RunKey, state);
         }
     }
 }

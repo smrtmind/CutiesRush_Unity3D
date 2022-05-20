@@ -15,11 +15,7 @@ namespace Scripts.Player
         {
             _playerController.LeftTurn = Input.GetKey(KeyCode.LeftArrow);
             _playerController.RightTurn = Input.GetKey(KeyCode.RightArrow);
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _playerController.Jump = true;
-            }
+            _playerController.Jump = Input.GetKeyDown(KeyCode.Space);
         }
     }
 }
