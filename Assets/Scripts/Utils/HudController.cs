@@ -16,6 +16,7 @@ namespace Scripts.Utils
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _pauseButton;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _backButton;
         [SerializeField] private Button _exitButton;
 
         [Space]
@@ -27,6 +28,7 @@ namespace Scripts.Utils
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
         private LevelComponent _levelComponent;
+        private AudioComponent _audio;
 
         private readonly static int StartRunIconKey = Animator.StringToHash("start");
         private readonly static int RunIconKey = Animator.StringToHash("run");
@@ -38,6 +40,7 @@ namespace Scripts.Utils
             _timer = _timerToStart.GetComponent<Text>();
             _followCamera = FindObjectOfType<FollowCamera>();
             _levelComponent = FindObjectOfType<LevelComponent>();
+            _audio = FindObjectOfType<AudioComponent>();
 
             _defaultCameraVector = _followCamera.Offset;
         }
@@ -46,14 +49,14 @@ namespace Scripts.Utils
         {
             _coinsValue.text = $"{_gameSession.Coins}";
 
-            if ((int)_gameSession.OnStartDelay <= 0)
+            if ((int)_gameSession.OnStartDelay > 0)
             {
-                _timer.color = Color.green;
-                _timer.text = "GO";
+                _timer.text = $"{(int)_gameSession.OnStartDelay}";
             }
             else
             {
-                _timer.text = $"{(int)_gameSession.OnStartDelay}";
+                _timer.color = Color.green;
+                _timer.text = "GO!";
             }
 
             if (_playerController.IsRunning)
@@ -64,8 +67,11 @@ namespace Scripts.Utils
                 _distanceValue.text = $"{_gameSession.Distance}";
             }
 
-            if (_gameSession.Health <= 0)
+            if (_playerController.PlayerLose)
             {
+                //_audio.StopMainSource();
+                //_audio.Play("game over");
+
                 _runIconAnimator.SetBool(RunIconKey, true);
 
                 _playButton.gameObject.SetActive(true);
@@ -73,6 +79,7 @@ namespace Scripts.Utils
 
                 _pauseButton.gameObject.SetActive(false);
                 _restartButton.gameObject.SetActive(true);
+                _backButton.gameObject.SetActive(true);
                 _exitButton.gameObject.SetActive(true);
 
                 _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
@@ -119,6 +126,11 @@ namespace Scripts.Utils
         {
             var sceneName = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(sceneName);
+        }
+
+        public void OnBack()
+        {
+            SceneManager.LoadScene("MainMenu");
         }
 
         public void OnExit()

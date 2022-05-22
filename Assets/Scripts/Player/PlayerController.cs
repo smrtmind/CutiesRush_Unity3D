@@ -29,10 +29,12 @@ namespace Scripts.Player
         private Rigidbody _rigidbody;
         private bool _isGrounded;
         private bool _gameIsStarted;
+        private bool _playerLose;
 
         public bool GameIsStarted => _gameIsStarted;
         public bool IsRunning => _isRunning;
         public bool IsGrounded => _isGrounded;
+        public bool PlayerLose => _playerLose;
 
         private void Awake()
         {
@@ -96,6 +98,8 @@ namespace Scripts.Player
 
             if (_gameSession.Health <= 0)
             {
+                _playerLose = true;
+
                 _isRunning = false;
                 _animator.SetBool(LoseKey, true);
             }
