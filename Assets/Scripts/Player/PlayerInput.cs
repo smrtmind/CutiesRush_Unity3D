@@ -13,8 +13,8 @@ namespace Scripts.Player
 
         private void Update()
         {
-            _playerController.LeftTurn = Input.GetKey(KeyCode.LeftArrow);
-            _playerController.RightTurn = Input.GetKey(KeyCode.RightArrow);
+            _playerController.LeftTurn = Input.GetKeyDown(KeyCode.LeftArrow);
+            _playerController.RightTurn = Input.GetKeyDown(KeyCode.RightArrow);
             _playerController.Jump = Input.GetKeyDown(KeyCode.Space);
         }
     }

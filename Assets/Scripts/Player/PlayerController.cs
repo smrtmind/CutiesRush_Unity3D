@@ -23,13 +23,14 @@ namespace Scripts.Player
         public bool RightTurn { get; set; }
         public bool Jump { get; set; }
 
-        private LevelBoundaries _lvlBounds;
+        private LevelComponent _levelComponent;
         private bool _isRunning;
         private GameSession _gameSession;
         private Rigidbody _rigidbody;
         private bool _isGrounded;
         private bool _gameIsStarted;
         private bool _playerLose;
+        private float _currentLane;
 
         public bool GameIsStarted => _gameIsStarted;
         public bool IsRunning => _isRunning;
@@ -38,9 +39,9 @@ namespace Scripts.Player
 
         private void Awake()
         {
-            _lvlBounds = FindObjectOfType<LevelBoundaries>();
             _gameSession = FindObjectOfType<GameSession>();
             _rigidbody = GetComponent<Rigidbody>();
+            _levelComponent = FindObjectOfType<LevelComponent>();
         }
 
         private void Update()
@@ -65,22 +66,19 @@ namespace Scripts.Player
             if (_isRunning)
             {
                 _animator.SetBool(RunKey, true);
-                transform.Translate(Vector3.forward * _speed * Time.deltaTime, Space.World);
 
                 if (LeftTurn)
                 {
-                    if (transform.position.x > _lvlBounds.GroundBorder * -1)
-                    {
-                        transform.Translate(Vector3.left * _turnSpeed * Time.deltaTime);
-                    }
+                    if (_currentLane > -1)
+                        _currentLane -= _levelComponent.DistanceBetweenLanes;
                 }
+
                 if (RightTurn)
                 {
-                    if (transform.position.x < _lvlBounds.GroundBorder)
-                    {
-                        transform.Translate(Vector3.right * _turnSpeed * Time.deltaTime);
-                    }
+                    if (_currentLane < 1)
+                        _currentLane += _levelComponent.DistanceBetweenLanes;
                 }
+
                 if (Jump && _isGrounded)
                 {
                     _animator.SetTrigger(JumpKey);
@@ -110,6 +108,17 @@ namespace Scripts.Player
             //}
         }
 
+        private void FixedUpdate()
+        {
+            if (_isRunning)
+            {
+                _rigidbody.MovePosition(transform.position + transform.forward * _speed * Time.deltaTime);
+            }
+
+            Vector3 newPosition = _rigidbody.position;
+            newPosition.x = Mathf.MoveTowards(newPosition.x, _currentLane, _turnSpeed * Time.deltaTime);
+            _rigidbody.position = newPosition;
+        }
         public void SetRunningState(bool state)
         {
             _isRunning = state;

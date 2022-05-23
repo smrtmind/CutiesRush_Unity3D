@@ -971,7 +971,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1295842615}
-  - component: {fileID: 1295842614}
   - component: {fileID: 1295842616}
   m_Layer: 0
   m_Name: LevelControl
@@ -980,20 +979,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1295842614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295842613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a586360531459d4f98e4fe66ba073a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundBorder: 0
-  _ground: {fileID: 1377744388}
 --- !u!4 &1295842615
 Transform:
   m_ObjectHideFlags: 0
@@ -1027,11 +1012,13 @@ MonoBehaviour:
   - {fileID: 9025550810436162793, guid: a39ff0d4fabbea04aad16f704c5f4f3f, type: 3}
   - {fileID: 9025550810436162793, guid: 446e37cefc16bb6469c134578ca98279, type: 3}
   - {fileID: 9025550810436162793, guid: 5a7321769a8a0ad48ae275e3dd53eeab, type: 3}
-  _testSection: {fileID: 528565522}
+  _startSection: {fileID: 528565522}
+  _ground: {fileID: 1377744388}
   _startSpawn: 1
   _spawnSectionsOnStart: 10
   _spawnSectionsDelay: 3
   _sectionLong: 40
+  _distanceBetweenLanes: 2.2
   _biomeLifeSpan: 80
 --- !u!4 &1377744388 stripped
 Transform:
@@ -1128,7 +1115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a540a798d18f6a47834752c442fd06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 9
   _turnSpeed: 5
   _jumpForce: 10
   _animator: {fileID: 627325840}
@@ -1424,6 +1411,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TestSection
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025550810851777072, guid: c460318077db54640adc41dc8af1b9ee,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c460318077db54640adc41dc8af1b9ee, type: 3}
