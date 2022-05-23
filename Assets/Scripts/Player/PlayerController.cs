@@ -19,10 +19,12 @@ namespace Scripts.Player
         private static readonly int FallKey = Animator.StringToHash("fall");
         private static readonly int LoseKey = Animator.StringToHash("lose");
 
+        //pc controls
         public bool LeftTurn { get; set; }
         public bool RightTurn { get; set; }
         public bool Jump { get; set; }
 
+        private SwipeManager _swipeManager;
         private LevelComponent _levelComponent;
         private bool _isRunning;
         private GameSession _gameSession;
@@ -32,13 +34,19 @@ namespace Scripts.Player
         private bool _playerLose;
         private float _currentLane;
 
+        public bool PlayerLose
+        {
+            get => _playerLose;
+            set => _playerLose = value;
+        }
         public bool GameIsStarted => _gameIsStarted;
         public bool IsRunning => _isRunning;
         public bool IsGrounded => _isGrounded;
-        public bool PlayerLose => _playerLose;
+        public Animator Animator => _animator;
 
         private void Awake()
         {
+            _swipeManager = FindObjectOfType<SwipeManager>();
             _gameSession = FindObjectOfType<GameSession>();
             _rigidbody = GetComponent<Rigidbody>();
             _levelComponent = FindObjectOfType<LevelComponent>();
@@ -67,19 +75,19 @@ namespace Scripts.Player
             {
                 _animator.SetBool(RunKey, true);
 
-                if (LeftTurn)
+                if (LeftTurn || _swipeManager.SwipeLeft)
                 {
                     if (_currentLane > -1)
                         _currentLane -= _levelComponent.DistanceBetweenLanes;
                 }
 
-                if (RightTurn)
+                if (RightTurn || _swipeManager.SwipeRight)
                 {
                     if (_currentLane < 1)
                         _currentLane += _levelComponent.DistanceBetweenLanes;
                 }
 
-                if (Jump && _isGrounded)
+                if (_swipeManager.SwipeUp && _isGrounded || Jump && _isGrounded)
                 {
                     _animator.SetTrigger(JumpKey);
                     _rigidbody.velocity = Vector3.up * _jumpForce;
@@ -94,10 +102,8 @@ namespace Scripts.Player
                 }
             }
 
-            if (_gameSession.Health <= 0)
+            if (_playerLose)
             {
-                _playerLose = true;
-
                 _isRunning = false;
                 _animator.SetBool(LoseKey, true);
             }

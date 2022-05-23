@@ -13,6 +13,7 @@ namespace Scripts.Player
 
         private void Update()
         {
+            //pc controls
             _playerController.LeftTurn = Input.GetKeyDown(KeyCode.LeftArrow);
             _playerController.RightTurn = Input.GetKeyDown(KeyCode.RightArrow);
             _playerController.Jump = Input.GetKeyDown(KeyCode.Space);

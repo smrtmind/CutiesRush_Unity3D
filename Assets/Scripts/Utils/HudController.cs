@@ -28,7 +28,6 @@ namespace Scripts.Utils
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
         private LevelComponent _levelComponent;
-        private AudioComponent _audio;
 
         private readonly static int StartRunIconKey = Animator.StringToHash("start");
         private readonly static int RunIconKey = Animator.StringToHash("run");
@@ -40,7 +39,6 @@ namespace Scripts.Utils
             _timer = _timerToStart.GetComponent<Text>();
             _followCamera = FindObjectOfType<FollowCamera>();
             _levelComponent = FindObjectOfType<LevelComponent>();
-            _audio = FindObjectOfType<AudioComponent>();
 
             _defaultCameraVector = _followCamera.Offset;
         }
@@ -69,9 +67,6 @@ namespace Scripts.Utils
 
             if (_playerController.PlayerLose)
             {
-                //_audio.StopMainSource();
-                //_audio.Play("game over");
-
                 _runIconAnimator.SetBool(RunIconKey, true);
 
                 _playButton.gameObject.SetActive(true);
@@ -98,6 +93,11 @@ namespace Scripts.Utils
 
         public void OnPause()
         {
+            //if (!_playerController.IsGrounded)
+            //{
+            //    _playerController.Animator.SetBool("fall", false);
+            //}
+
             _levelComponent.StartSpawn = false;
 
             _runIconAnimator.SetBool(RunIconKey, true);
