@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d540599502482449514a5e4cdda305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &5620783520415038025
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722674947277793800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.5, z: 0.5}
+  m_Center: {x: -0.25, y: 0.22, z: 0}
 --- !u!1 &797579531784004515
 GameObject:
   m_ObjectHideFlags: 0

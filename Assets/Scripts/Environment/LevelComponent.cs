@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Scripts.Player;
+using Scripts.Utils;
+using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Environment
@@ -28,9 +30,15 @@ namespace Scripts.Environment
         private float _zPosition;
         private bool _readyToSpawn;
         private const int _lanesAmount = 3;
+        private GameConstructor _gameConstructor;
+        private PlayerController _playerController;
 
         private void Awake()
         {
+            _playerController = FindObjectOfType<PlayerController>();
+            _gameConstructor = FindObjectOfType<GameConstructor>();
+            SpawnPlayer();
+
             _zPosition += _indentOnStart;
 
             if (_distanceBetweenLanes == 0)
@@ -70,6 +78,23 @@ namespace Scripts.Environment
 
             Instantiate(_sections[randomIndex], new Vector3(0, 0, _zPosition), Quaternion.identity);
             _zPosition += _sectionLong;
+        }
+
+        public void SpawnPlayer()
+        {
+            GameObject player;
+
+            if (!_gameConstructor.Player)
+            {
+                var randomIndex = Random.Range(0, _gameConstructor.PlayerSkin.Length);
+                player = _gameConstructor.PlayerSkin[randomIndex];
+            }
+            else
+            {
+                player = _gameConstructor.Player;
+            }
+
+            Instantiate(player, _playerController.transform);
         }
     }
 }

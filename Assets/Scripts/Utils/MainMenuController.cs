@@ -7,11 +7,19 @@ namespace Scripts.Utils
     {
         [SerializeField] private GameObject _mainSettings;
         [SerializeField] private GameObject _playerType;
+        [SerializeField] private GameObject _skinType;
         [SerializeField] private GameObject _chooseLevel;
         [SerializeField] private GameObject _loadingOverlay;
         [SerializeField] private float _loadingDelay = 3f;
 
         private bool _startPressed;
+        private GameConstructor _gameConstructor;
+        private string _levelName;
+
+        private void Awake()
+        {
+            _gameConstructor = FindObjectOfType<GameConstructor>();
+        }
 
         private void Update()
         {
@@ -23,7 +31,13 @@ namespace Scripts.Utils
                 }
                 else
                 {
-                    SceneManager.LoadScene("EndlessForest");
+                    if (_levelName == null)
+                    {
+                        var randomIndex = Random.Range(0, _gameConstructor.LevelName.Length);
+                        _levelName = _gameConstructor.LevelName[randomIndex];
+                    }
+
+                    SceneManager.LoadScene(_levelName);
                 }
             }
         }
@@ -36,28 +50,41 @@ namespace Scripts.Utils
 
         public void OnPlayerEdit()
         {
-            _mainSettings.SetActive(false);
+            SetGoState(false, _mainSettings, _skinType, _chooseLevel);
             _playerType.SetActive(true);
-            _chooseLevel.SetActive(false);
+        }
+
+        public void OnSkinEdit()
+        {
+            SetGoState(false, _mainSettings, _playerType, _chooseLevel);
+            _skinType.SetActive(true);
         }
 
         public void OnLevelSettings()
         {
-            _mainSettings.SetActive(false);
-            _playerType.SetActive(false);
+            SetGoState(false, _mainSettings, _playerType, _skinType);
             _chooseLevel.SetActive(true);
         }
 
-        public void OnExit()
+        public void OnMainMenu()
         {
-            Application.Quit();
+            SetGoState(false, _chooseLevel, _playerType, _skinType);
+            _mainSettings.SetActive(true);
         }
 
-        public void OnBack()
+        public void OnExit() => Application.Quit();
+
+        public void SetPlayerModel(int value)
         {
-            _mainSettings.SetActive(true);
-            _playerType.SetActive(false);
-            _chooseLevel.SetActive(false);
+            _gameConstructor.SetPlayer(value);
+        }
+
+        public void SetLevel(string name) => _levelName = name;
+
+        private void SetGoState(bool state, params GameObject[] gos)
+        {
+            foreach (var go in gos)
+                go.SetActive(state);
         }
     }
 }

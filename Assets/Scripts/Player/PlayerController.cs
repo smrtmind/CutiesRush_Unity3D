@@ -13,7 +13,6 @@ namespace Scripts.Player
         [SerializeField] private float _turnSpeed = 5f;
         [SerializeField] private float _jumpForce = 5f;
         [SerializeField] private float _slideDuration = 0.5f;
-        [SerializeField] private Animator _animator;
 
         [Header("Checkers")]
         [SerializeField] private LayerCheck _groundCheck;
@@ -43,6 +42,7 @@ namespace Scripts.Player
         private Vector3 _defaultColliderCenter;
         private float _defaultColliderHeight;
         private HudController _hudController;
+        private Animator _animator;
 
         public bool PlayerLose
         {
@@ -52,11 +52,11 @@ namespace Scripts.Player
         public bool GameIsStarted => _gameIsStarted;
         public bool IsRunning => _isRunning;
         public bool IsGrounded => _isGrounded;
-        public Animator Animator => _animator;
         public Rigidbody Rigidbody => _rigidbody;
 
         private void Awake()
         {
+            _animator = FindObjectOfType<Animator>();
             _collider = GetComponent<CapsuleCollider>();
             _defaultColliderCenter = _collider.center;
             _defaultColliderHeight = _collider.height;
@@ -134,11 +134,6 @@ namespace Scripts.Player
                 _isRunning = false;
                 _animator.SetBool(LoseKey, true);
             }
-
-            //if (transform.position.y < -5f)
-            //{
-            //    Debug.Log("Game Over");
-            //}
         }
 
         private IEnumerator Slide()

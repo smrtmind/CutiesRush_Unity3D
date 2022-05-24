@@ -318,6 +318,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1513410289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1513410291}
+  - component: {fileID: 1513410290}
+  m_Layer: 0
+  m_Name: GameConstructor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1513410290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513410289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e076f8bda80984fafa9fc8328a5e04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerSkin:
+  - {fileID: 1793442814001743036, guid: ffa4e8682d38efd49aec2a01b6e324ba, type: 3}
+  - {fileID: 1793442814001743036, guid: ba61d8ab269a9514a9c27f12882d4761, type: 3}
+  - {fileID: 1793442814001743036, guid: d81e40b9422d17f4ab52446064bb32bc, type: 3}
+  - {fileID: 1771210941740699276, guid: df21a1e6a957bb14eb6e0313380e853c, type: 3}
+  - {fileID: 6894812767067397468, guid: d015d9946c85c834684b3ae11587edaf, type: 3}
+  - {fileID: 6894812767067397468, guid: d19a62b8bee2c754880493e2ca99b402, type: 3}
+  _levelName:
+  - EndlessForest
+  - EndlessDesert
+--- !u!4 &1513410291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513410289}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.91368, y: -5.372429, z: -12.437686}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1520460000
 GameObject:
   m_ObjectHideFlags: 0
