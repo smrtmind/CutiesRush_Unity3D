@@ -4,29 +4,13 @@ namespace Scripts.Environment
 {
     public class Biome : MonoBehaviour
     {
-        private float _biomeLifeSpan;
-        private bool _stopBiomeTimer;
+        [SerializeField] private GameObject _biome;
 
-        public bool StopBiomeTimer
+        private void OnTriggerEnter(Collider other)
         {
-            get => _stopBiomeTimer;
-            set => _stopBiomeTimer = value;
-        }
-
-        private void Awake()
-        {
-            _biomeLifeSpan = FindObjectOfType<LevelComponent>().BiomeLifeSpan;
-        }
-
-        private void Update()
-        {
-            if (!_stopBiomeTimer)
+            if (other.gameObject.tag == "Player")
             {
-                if (_biomeLifeSpan > 0)
-                    _biomeLifeSpan -= Time.deltaTime;
-                
-                if (_biomeLifeSpan <= 0)
-                    Destroy(gameObject);
+                Destroy(_biome);
             }
         }
     }

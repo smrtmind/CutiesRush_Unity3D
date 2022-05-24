@@ -6,7 +6,8 @@ namespace Scripts.Environment
     public class LevelComponent : MonoBehaviour
     {
         [SerializeField] private GameObject[] _sections;
-        [SerializeField] private GameObject _startSection;
+
+        [Space]
         [SerializeField] private Transform _ground;
 
         [Space]
@@ -14,10 +15,9 @@ namespace Scripts.Environment
         [SerializeField] private int _spawnSectionsOnStart;
         [SerializeField] private float _spawnSectionsDelay = 2f;
         [SerializeField] private float _sectionLong;
+        [SerializeField] private float _indentOnStart;
         [SerializeField] private float _distanceBetweenLanes;
-        [SerializeField] private float _biomeLifeSpan = 30f;
 
-        public float BiomeLifeSpan => _biomeLifeSpan;
         public float DistanceBetweenLanes => _distanceBetweenLanes;
         public bool StartSpawn
         {
@@ -31,10 +31,10 @@ namespace Scripts.Environment
 
         private void Awake()
         {
+            _zPosition += _indentOnStart;
+
             if (_distanceBetweenLanes == 0)
                 _distanceBetweenLanes = _ground.transform.localScale.x / _lanesAmount;
-
-            _startSection.SetActive(false);
 
             for (int i = 0; i < _spawnSectionsOnStart; i++)
             {
@@ -64,7 +64,7 @@ namespace Scripts.Environment
             _readyToSpawn = true;
         }
 
-        private void SpawnSection()
+        public void SpawnSection()
         {
             var randomIndex = Random.Range(0, _sections.Length);
 

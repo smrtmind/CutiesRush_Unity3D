@@ -1,5 +1,6 @@
 ﻿using Scripts.Environment;
 using Scripts.Utils;
+using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Player
@@ -7,8 +8,11 @@ namespace Scripts.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private float _speed = 5f;
+        [SerializeField] private float _maxSpeed = 20f;
+        [SerializeField] private float _increaseSpeedPerSec = 0.05f;
         [SerializeField] private float _turnSpeed = 5f;
         [SerializeField] private float _jumpForce = 5f;
+        [SerializeField] private float _slideDuration = 0.5f;
         [SerializeField] private Animator _animator;
 
         [Header("Checkers")]
@@ -16,6 +20,7 @@ namespace Scripts.Player
 
         private static readonly int RunKey = Animator.StringToHash("run");
         private static readonly int JumpKey = Animator.StringToHash("jump");
+        private static readonly int SlideKey = Animator.StringToHash("slide");
         private static readonly int FallKey = Animator.StringToHash("fall");
         private static readonly int LoseKey = Animator.StringToHash("lose");
 
@@ -23,16 +28,21 @@ namespace Scripts.Player
         public bool LeftTurn { get; set; }
         public bool RightTurn { get; set; }
         public bool Jump { get; set; }
+        public bool SlideDown { get; set; }
 
-        private SwipeManager _swipeManager;
         private LevelComponent _levelComponent;
         private bool _isRunning;
+        private bool _isSliding;
         private GameSession _gameSession;
         private Rigidbody _rigidbody;
         private bool _isGrounded;
         private bool _gameIsStarted;
         private bool _playerLose;
         private float _currentLane;
+        private CapsuleCollider _collider;
+        private Vector3 _defaultColliderCenter;
+        private float _defaultColliderHeight;
+        private HudController _hudController;
 
         public bool PlayerLose
         {
@@ -43,10 +53,15 @@ namespace Scripts.Player
         public bool IsRunning => _isRunning;
         public bool IsGrounded => _isGrounded;
         public Animator Animator => _animator;
+        public Rigidbody Rigidbody => _rigidbody;
 
         private void Awake()
         {
-            _swipeManager = FindObjectOfType<SwipeManager>();
+            _collider = GetComponent<CapsuleCollider>();
+            _defaultColliderCenter = _collider.center;
+            _defaultColliderHeight = _collider.height;
+
+            _hudController = FindObjectOfType<HudController>();
             _gameSession = FindObjectOfType<GameSession>();
             _rigidbody = GetComponent<Rigidbody>();
             _levelComponent = FindObjectOfType<LevelComponent>();
@@ -54,6 +69,9 @@ namespace Scripts.Player
 
         private void Update()
         {
+            if (_speed < _maxSpeed && !_hudController.IsOnPause && _gameIsStarted)
+                _speed += _increaseSpeedPerSec * Time.deltaTime;
+
             _isGrounded = _groundCheck.IsTouchingLayer;
 
             if (!_gameIsStarted)
@@ -75,30 +93,39 @@ namespace Scripts.Player
             {
                 _animator.SetBool(RunKey, true);
 
-                if (LeftTurn || _swipeManager.SwipeLeft)
+                if (LeftTurn)
                 {
                     if (_currentLane > -1)
                         _currentLane -= _levelComponent.DistanceBetweenLanes;
                 }
 
-                if (RightTurn || _swipeManager.SwipeRight)
+                if (RightTurn)
                 {
                     if (_currentLane < 1)
                         _currentLane += _levelComponent.DistanceBetweenLanes;
                 }
 
-                if (_swipeManager.SwipeUp && _isGrounded || Jump && _isGrounded)
+                if (_isGrounded && !_isSliding)
                 {
-                    _animator.SetTrigger(JumpKey);
-                    _rigidbody.velocity = Vector3.up * _jumpForce;
+                    if (SlideDown)
+                    {
+                        StartCoroutine(Slide());
+                    }
+
+                    if (Jump)
+                    {
+                        _animator.SetTrigger(JumpKey);
+                        _rigidbody.velocity = Vector3.up * _jumpForce;
+                    }
+
+                    else
+                    {
+                        _animator.SetBool(FallKey, false);
+                    }
                 }
-                else if (!_isGrounded)
+                else
                 {
                     _animator.SetBool(FallKey, true);
-                }
-                else if (_isGrounded)
-                {
-                    _animator.SetBool(FallKey, false);
                 }
             }
 
@@ -112,6 +139,21 @@ namespace Scripts.Player
             //{
             //    Debug.Log("Game Over");
             //}
+        }
+
+        private IEnumerator Slide()
+        {
+            _isSliding = true;
+            _animator.SetBool(SlideKey, true);
+            _collider.center = new Vector3(0f, 0.5f, 0f);
+            _collider.height = 1f;
+
+            yield return new WaitForSeconds(_slideDuration);
+
+            _collider.center = _defaultColliderCenter;
+            _collider.height = _defaultColliderHeight;
+            _animator.SetBool(SlideKey, false);
+            _isSliding = false;
         }
 
         private void FixedUpdate()

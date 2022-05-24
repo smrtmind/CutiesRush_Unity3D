@@ -28,6 +28,9 @@ namespace Scripts.Utils
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
         private LevelComponent _levelComponent;
+        private bool _isOnPause;
+
+        public bool IsOnPause => _isOnPause;
 
         private readonly static int StartRunIconKey = Animator.StringToHash("start");
         private readonly static int RunIconKey = Animator.StringToHash("run");
@@ -80,7 +83,6 @@ namespace Scripts.Utils
                 _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
 
                 _levelComponent.StartSpawn = false;
-                StopBiomeTimer(true);
             }
 
             if (_playerController.GameIsStarted)
@@ -93,10 +95,10 @@ namespace Scripts.Utils
 
         public void OnPause()
         {
-            //if (!_playerController.IsGrounded)
-            //{
-            //    _playerController.Animator.SetBool("fall", false);
-            //}
+            _isOnPause = true;
+
+            if (!_playerController.IsGrounded)
+                _playerController.Rigidbody.isKinematic = true;
 
             _levelComponent.StartSpawn = false;
 
@@ -106,20 +108,21 @@ namespace Scripts.Utils
             SetRotation(0f, 180f, 0f);
 
             _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
-
-            StopBiomeTimer(true);
         }
 
         public void OnPlay()
         {
+            _isOnPause = false;
+
+            if (_playerController.Rigidbody.isKinematic)
+                _playerController.Rigidbody.isKinematic = false;
+
             _levelComponent.StartSpawn = true;
 
             _playerController.SetRunningState(true);
             SetRotation(0f, 0f, 0f);
 
             _followCamera.Offset = _defaultCameraVector;
-
-            StopBiomeTimer(false);
         }
 
         public void OnRestart()
@@ -142,18 +145,6 @@ namespace Scripts.Utils
         {
             var rotation = new Vector3(x, y, z);
             _playerController.gameObject.transform.rotation = Quaternion.Euler(rotation);
-        }
-
-        private void StopBiomeTimer(bool state)
-        {
-            var biomes = FindObjectsOfType<Biome>();
-            if (biomes.Length > 0)
-            {
-                foreach (var biome in biomes)
-                {
-                    biome.StopBiomeTimer = state;
-                }
-            }
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Scripts.Player
 {
     public class SwipeManager : MonoBehaviour
     {
-        private bool _tap;
+        //private bool _tap;
         private bool _swipeLeft;
         private bool _swipeRight;
         private bool _swipeUp;
@@ -13,7 +13,6 @@ namespace Scripts.Player
         private Vector2 _startTouch;
         private Vector2 _swipeDelta;
 
-        public bool Tap => _tap;
         public bool SwipeLeft => _swipeLeft;
         public bool SwipeRight => _swipeRight;
         public bool SwipeUp => _swipeUp;
@@ -21,11 +20,11 @@ namespace Scripts.Player
 
         private void Update()
         {
-            _tap = _swipeDown = _swipeUp = _swipeLeft = _swipeRight = false;
+            /*_tap = */_swipeDown = _swipeUp = _swipeLeft = _swipeRight = false;
             #region Standalone Inputs
             if (Input.GetMouseButtonDown(0))
             {
-                _tap = true;
+                //_tap = true;
                 _isDraging = true;
                 _startTouch = Input.mousePosition;
             }
@@ -41,7 +40,7 @@ namespace Scripts.Player
             {
                 if (Input.touches[0].phase == TouchPhase.Began)
                 {
-                    _tap = true;
+                    //_tap = true;
                     _isDraging = true;
                     _startTouch = Input.touches[0].position;
                 }

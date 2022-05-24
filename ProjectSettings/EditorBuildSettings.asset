@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndlessForest.unity
     guid: 65762d59c2ef03c4ca8edfe709ba2747
+  - enabled: 1
+    path: Assets/Scenes/EndlessDesert.unity
+    guid: 3ba09b382aa45a44184f3395602d19e3
   m_configObjects: {}
