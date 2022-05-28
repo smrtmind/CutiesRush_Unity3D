@@ -13,8 +13,6 @@ namespace Scripts.Environment
 
         [Space]
         [SerializeField] private int _spawnSectionsOnStart;
-        [SerializeField] private float _sectionLong;
-        [SerializeField] private float _indentOnStart;
         [SerializeField] private float _distanceBetweenLanes;
 
         public float DistanceBetweenLanes => _distanceBetweenLanes;
@@ -23,6 +21,7 @@ namespace Scripts.Environment
         private const int _lanesAmount = 3;
         private GameConstructor _gameConstructor;
         private PlayerController _playerController;
+        private float _sectionLong;
 
         private void Awake()
         {
@@ -30,7 +29,8 @@ namespace Scripts.Environment
             _gameConstructor = FindObjectOfType<GameConstructor>();
             SpawnPlayer();
 
-            _zPosition += _indentOnStart;
+            _sectionLong = _ground.localScale.z;
+            _zPosition += _sectionLong;
 
             if (_distanceBetweenLanes == 0)
                 _distanceBetweenLanes = _ground.transform.localScale.x / _lanesAmount;
