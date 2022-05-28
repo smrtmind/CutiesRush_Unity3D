@@ -5,15 +5,14 @@ namespace Scripts.Objects
 {
     public class CollectableComponent : MonoBehaviour
     {
-        [SerializeField] private AudioClip _clip;
         [SerializeField] private bool _isCoin;
 
-        private AudioSource _audioSource;
+        private AudioComponent _audioComponent;
         private GameSession _gameSession;
 
         private void Awake()
         {
-            _audioSource = FindObjectOfType<AudioSource>();
+            _audioComponent = FindObjectOfType<AudioComponent>();
             _gameSession = FindObjectOfType<GameSession>();
         }
 
@@ -21,7 +20,7 @@ namespace Scripts.Objects
         {
             if (other.gameObject.tag == "Player")
             {
-                _audioSource.PlayOneShot(_clip);
+                _audioComponent.Play("coin", 0.2f);
                 Destroy(gameObject);
             }
         }
