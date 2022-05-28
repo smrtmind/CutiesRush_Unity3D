@@ -878,9 +878,7 @@ MonoBehaviour:
   - {fileID: 9025550810436162793, guid: fdadfefb946553f41afe5ff9c0e10a53, type: 3}
   - {fileID: 9025550810436162793, guid: c6b63e880f424b745aefe0ec5b91c44e, type: 3}
   _ground: {fileID: 1249335984}
-  _startSpawn: 1
   _spawnSectionsOnStart: 10
-  _spawnSectionsDelay: 3
   _sectionLong: 40
   _indentOnStart: 40
   _distanceBetweenLanes: 2.2
@@ -962,7 +960,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1579671542}
-  - component: {fileID: 1579671541}
   - component: {fileID: 1579671540}
   m_Layer: 9
   m_Name: GroundCheck
@@ -987,20 +984,6 @@ MonoBehaviour:
   _beamLength: 0.7
   _direction: 1
   _color: {r: 0, g: 0.6040268, b: 1, a: 1}
---- !u!136 &1579671541
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1579671539}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.33598804
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0.16401196}
 --- !u!4 &1579671542
 Transform:
   m_ObjectHideFlags: 0

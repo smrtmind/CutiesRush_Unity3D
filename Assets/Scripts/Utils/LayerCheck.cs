@@ -11,15 +11,7 @@ namespace Scripts.Utils
 
         public bool IsTouchingLayer => _isTouchingLayer;
 
-        private Collider _collider;
-        private Vector3 _defaultColliderBounds;
         private Vector3 _raycastDirection;
-
-        private void Awake()
-        {
-            _collider = GetComponent<Collider>();
-            _defaultColliderBounds = _collider.bounds.extents;
-        }
 
         private void Update()
         {

@@ -1,5 +1,4 @@
-﻿using Scripts.Environment;
-using Scripts.Player;
+﻿using Scripts.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,7 +26,6 @@ namespace Scripts.Utils
         private Text _timer;
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
-        private LevelComponent _levelComponent;
         private bool _isOnPause;
 
         public bool IsOnPause => _isOnPause;
@@ -41,7 +39,6 @@ namespace Scripts.Utils
             _playerController = FindObjectOfType<PlayerController>();
             _timer = _timerToStart.GetComponent<Text>();
             _followCamera = FindObjectOfType<FollowCamera>();
-            _levelComponent = FindObjectOfType<LevelComponent>();
 
             _defaultCameraVector = _followCamera.Offset;
         }
@@ -81,8 +78,6 @@ namespace Scripts.Utils
                 _exitButton.gameObject.SetActive(true);
 
                 _followCamera.Offset = new Vector3(0f, 2f, -3.5f);
-
-                _levelComponent.StartSpawn = false;
             }
 
             if (_playerController.GameIsStarted)
@@ -100,8 +95,6 @@ namespace Scripts.Utils
             if (!_playerController.IsGrounded)
                 _playerController.Rigidbody.isKinematic = true;
 
-            _levelComponent.StartSpawn = false;
-
             _runIconAnimator.SetBool(RunIconKey, true);
 
             _playerController.SetRunningState(false);
@@ -116,8 +109,6 @@ namespace Scripts.Utils
 
             if (_playerController.Rigidbody.isKinematic)
                 _playerController.Rigidbody.isKinematic = false;
-
-            _levelComponent.StartSpawn = true;
 
             _playerController.SetRunningState(true);
             SetRotation(0f, 0f, 0f);
