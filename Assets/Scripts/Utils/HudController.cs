@@ -27,6 +27,7 @@ namespace Scripts.Utils
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
         private bool _isOnPause;
+        private bool _pauseButtonActive;
 
         public bool IsOnPause => _isOnPause;
 
@@ -84,7 +85,11 @@ namespace Scripts.Utils
             {
                 _runIconAnimator.SetBool(StartRunIconKey, true);
 
-                _pauseButton.interactable = true;
+                if (!_pauseButtonActive)
+                {
+                    _pauseButton.gameObject.SetActive(true);
+                    _pauseButtonActive = true;
+                }
             }
         }
 

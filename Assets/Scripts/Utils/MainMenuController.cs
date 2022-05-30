@@ -7,7 +7,8 @@ namespace Scripts.Utils
     {
         [SerializeField] private GameObject _mainSettings;
         [SerializeField] private GameObject _playerType;
-        [SerializeField] private GameObject _skinType;
+        [SerializeField] private GameObject _kittySkins;
+        [SerializeField] private GameObject _doggySkins;
         [SerializeField] private GameObject _chooseLevel;
         [SerializeField] private GameObject _loadingOverlay;
         [SerializeField] private float _loadingDelay = 3f;
@@ -50,25 +51,19 @@ namespace Scripts.Utils
 
         public void OnPlayerEdit()
         {
-            SetGoState(false, _mainSettings, _skinType, _chooseLevel);
+            SetGoState(false, _mainSettings, _kittySkins, _doggySkins, _chooseLevel);
             _playerType.SetActive(true);
-        }
-
-        public void OnSkinEdit()
-        {
-            SetGoState(false, _mainSettings, _playerType, _chooseLevel);
-            _skinType.SetActive(true);
         }
 
         public void OnLevelSettings()
         {
-            SetGoState(false, _mainSettings, _playerType, _skinType);
+            SetGoState(false, _mainSettings, _playerType, _kittySkins, _doggySkins);
             _chooseLevel.SetActive(true);
         }
 
         public void OnMainMenu()
         {
-            SetGoState(false, _chooseLevel, _playerType, _skinType);
+            SetGoState(false, _chooseLevel, _playerType, _kittySkins, _doggySkins);
             _mainSettings.SetActive(true);
         }
 

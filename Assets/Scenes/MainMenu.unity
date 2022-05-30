@@ -354,6 +354,12 @@ MonoBehaviour:
   - {fileID: 1771210941740699276, guid: df21a1e6a957bb14eb6e0313380e853c, type: 3}
   - {fileID: 6894812767067397468, guid: d015d9946c85c834684b3ae11587edaf, type: 3}
   - {fileID: 6894812767067397468, guid: d19a62b8bee2c754880493e2ca99b402, type: 3}
+  - {fileID: 4087146861439892212, guid: 03487ddbb65117f4db2bba5829cdfd17, type: 3}
+  - {fileID: 4087146861439892212, guid: 62ba07cf27aba734db2286fe550acea8, type: 3}
+  - {fileID: 4087146861439892212, guid: 330c3605c8812f3449820662c9c5eb36, type: 3}
+  - {fileID: 5194681431593893934, guid: a6ce31a0fd3ad684ca899f29ab0581e9, type: 3}
+  - {fileID: 5193164683351174892, guid: ebcf7fdec9530de47b46e5c794e822cd, type: 3}
+  - {fileID: 5193164683351174892, guid: e71fd7f6ed6f5204b89db59312bc38b8, type: 3}
   _levelName:
   - EndlessForest
   - EndlessDesert
