@@ -944,7 +944,7 @@ MonoBehaviour:
   _increaseSpeedPerSec: 0.1
   _turnSpeed: 5
   _jumpForce: 12
-  _slideDuration: 1
+  _slideDuration: 0.8
   _groundCheck: {fileID: 1456185279}
 --- !u!4 &1559364214
 Transform:

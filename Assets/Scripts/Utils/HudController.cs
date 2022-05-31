@@ -106,7 +106,8 @@ namespace Scripts.Utils
         {
             _isOnPause = false;
 
-            _playerController.Rigidbody.isKinematic = false;
+            if (_playerController.Rigidbody.isKinematic)
+                _playerController.Rigidbody.isKinematic = false;
 
             _playerController.SetRunningState(true);
             SetRotation(0f, 0f, 0f);

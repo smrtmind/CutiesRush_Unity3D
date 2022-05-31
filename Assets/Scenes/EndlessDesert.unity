@@ -1169,7 +1169,7 @@ MonoBehaviour:
   _increaseSpeedPerSec: 0.1
   _turnSpeed: 5
   _jumpForce: 12
-  _slideDuration: 1
+  _slideDuration: 0.8
   _groundCheck: {fileID: 1579671540}
 --- !u!114 &4378180687375966293
 MonoBehaviour:
