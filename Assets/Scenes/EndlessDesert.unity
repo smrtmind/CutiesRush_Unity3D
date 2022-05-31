@@ -879,8 +879,6 @@ MonoBehaviour:
   - {fileID: 9025550810436162793, guid: c6b63e880f424b745aefe0ec5b91c44e, type: 3}
   _ground: {fileID: 1249335984}
   _spawnSectionsOnStart: 10
-  _sectionLong: 40
-  _indentOnStart: 40
   _distanceBetweenLanes: 2.2
 --- !u!1001 &1299160552
 PrefabInstance:
@@ -1168,7 +1166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 7
   _maxSpeed: 20
-  _increaseSpeedPerSec: 0.05
+  _increaseSpeedPerSec: 0.1
   _turnSpeed: 5
   _jumpForce: 12
   _slideDuration: 1

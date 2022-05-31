@@ -27,7 +27,6 @@ namespace Scripts.Utils
         private FollowCamera _followCamera;
         private Vector3 _defaultCameraVector;
         private bool _isOnPause;
-        private bool _pauseButtonActive;
 
         public bool IsOnPause => _isOnPause;
 
@@ -84,12 +83,7 @@ namespace Scripts.Utils
             if (_playerController.GameIsStarted)
             {
                 _runIconAnimator.SetBool(StartRunIconKey, true);
-
-                if (!_pauseButtonActive)
-                {
-                    _pauseButton.gameObject.SetActive(true);
-                    _pauseButtonActive = true;
-                }
+                _pauseButton.interactable = true;
             }
         }
 
@@ -112,8 +106,7 @@ namespace Scripts.Utils
         {
             _isOnPause = false;
 
-            if (_playerController.Rigidbody.isKinematic)
-                _playerController.Rigidbody.isKinematic = false;
+            _playerController.Rigidbody.isKinematic = false;
 
             _playerController.SetRunningState(true);
             SetRotation(0f, 0f, 0f);

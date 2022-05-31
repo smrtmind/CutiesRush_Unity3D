@@ -8,7 +8,7 @@ namespace Scripts.Utils
     {
         [SerializeField] private int _coins;
         [SerializeField] private int _distance;
-        [SerializeField] private float _addDistanceDelay = 1f;
+        [SerializeField] private float _addDistanceDelay = 0.3f;
         [SerializeField] private float _onStartDelay = 3f;
 
         public float OnStartDelay
@@ -44,7 +44,7 @@ namespace Scripts.Utils
         {
             _distance++;
 
-            yield return new WaitForSeconds(_addDistanceDelay);
+            yield return new WaitForSeconds(_addDistanceDelay -= _playerController.IncreaseSpeedPerSec * Time.deltaTime);
 
             _addDistance = false;
         }

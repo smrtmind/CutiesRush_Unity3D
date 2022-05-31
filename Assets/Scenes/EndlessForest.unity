@@ -476,7 +476,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8a6cd1cd174675c40aa610de2e13ed21, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1e3fb00c66268934d984a21d9a65ae7b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
@@ -798,8 +798,6 @@ MonoBehaviour:
   - {fileID: 9025550810436162793, guid: 5a7321769a8a0ad48ae275e3dd53eeab, type: 3}
   _ground: {fileID: 1451783221}
   _spawnSectionsOnStart: 10
-  _sectionLong: 40
-  _indentOnStart: 40
   _distanceBetweenLanes: 2.2
 --- !u!4 &1451783221 stripped
 Transform:
@@ -943,7 +941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 7
   _maxSpeed: 20
-  _increaseSpeedPerSec: 0.05
+  _increaseSpeedPerSec: 0.1
   _turnSpeed: 5
   _jumpForce: 12
   _slideDuration: 1

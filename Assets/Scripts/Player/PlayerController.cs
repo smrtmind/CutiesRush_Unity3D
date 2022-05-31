@@ -53,6 +53,7 @@ namespace Scripts.Player
         public bool IsRunning => _isRunning;
         public bool IsGrounded => _isGrounded;
         public Rigidbody Rigidbody => _rigidbody;
+        public float IncreaseSpeedPerSec => _increaseSpeedPerSec;
 
         private void Awake()
         {
@@ -69,7 +70,7 @@ namespace Scripts.Player
 
         private void Update()
         {
-            if (_speed < _maxSpeed && !_hudController.IsOnPause && _gameIsStarted)
+            if (_speed < _maxSpeed && !_hudController.IsOnPause && _gameIsStarted && !_playerLose)
                 _speed += _increaseSpeedPerSec * Time.deltaTime;
 
             _isGrounded = _groundCheck.IsTouchingLayer;
