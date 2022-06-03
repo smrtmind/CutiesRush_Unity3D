@@ -20,15 +20,14 @@ namespace Scripts.Objects
         {
             if (other.gameObject.tag == "Player")
             {
-                _audioComponent.Play("coin", 0.2f);
-                Destroy(gameObject);
-            }
-        }
+                if (_item == Item.Coin)
+                {
+                    _audioComponent.Play("coin", 0.2f);
+                    _gameSession.AddCoin(1);
 
-        private void OnDestroy()
-        {
-            if (_item == Item.Coin)
-                _gameSession.AddCoin(1);
+                    Destroy(gameObject);
+                }
+            }
         }
 
         private enum Item
