@@ -5,7 +5,7 @@ namespace Scripts.Objects
 {
     public class CollectableComponent : MonoBehaviour
     {
-        [SerializeField] private bool _isCoin;
+        [SerializeField] private Item _item;
 
         private AudioComponent _audioComponent;
         private GameSession _gameSession;
@@ -27,8 +27,15 @@ namespace Scripts.Objects
 
         private void OnDestroy()
         {
-            if (_isCoin)
+            if (_item == Item.Coin)
                 _gameSession.AddCoin(1);
+        }
+
+        private enum Item
+        {
+            Coin,
+            SpeedBoost,
+            Immortality
         }
     }
 }
